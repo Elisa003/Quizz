@@ -16,6 +16,7 @@
         <?php include("test.php"); ?>
 
         <?php include("includes/footer.php"); ?>
+        <!--TEST pour GIT -->
     </body>
 
 </html>
