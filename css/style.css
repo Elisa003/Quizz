@@ -1,0 +1,25 @@
+.foot
+{
+    position: absolute;
+    width: 100%; 
+    height: 50px;
+    bottom: 0;
+}
+
+/* #carouselExampleIndicators
+{
+    width: 50%;
+    margin: auto;
+} */
+
+#carouselimg
+{
+    width: 100px;
+
+}
+
+.carousel-item
+{
+    width: 100px;
+
+}
