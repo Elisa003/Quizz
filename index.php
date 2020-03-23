@@ -10,10 +10,20 @@
         <title>Quizz </title>
     </head>
 
+<?php require_once "includes/functions.php"; ?>
+
     <body>
         <?php include("includes/header.php"); ?>
 
-        <?php include("test.php"); ?>
+        <?php include("includes/carousel.php"); ?>
+
+            <?php if (isUserConnected())
+                    {
+                        ?>
+                        <a href="#">Voir tous les films</a>
+                        <?php
+                    }
+            ?>
 
         <?php include("includes/footer.php"); ?>
         <!--TEST pour GIT -->

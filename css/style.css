@@ -14,8 +14,8 @@
 
 #carouselimg
 {
-    width: 100px;
-
+    width: 500px;
+    object-position: center;
 }
 
 .carousel-item
@@ -27,4 +27,14 @@
 .dropdown-item
 {
     object-position: right;
+}
+
+.container
+{
+    border: 10px;
+    border-color: black;
+    margin-top: 50px;
+    object-position: center;
+    background-color: burlywood;
+    width: 15%;
 }

@@ -10,11 +10,13 @@
         <title>Quizz </title>
     </head>
 
+<?php require_once "includes/functions.php" ; ?>
+
     <body>
         <!--NAVBAR-->
 
-<!--Barre de navigation-->
-<nav class="navbar navbar-expand-sm navbar-fixed-top bg-dark navbar-dark justify-content-center">
+        <!--Barre de navigation-->
+        <nav class="navbar navbar-expand-sm navbar-fixed-top bg-dark navbar-dark justify-content-center">
             <!--Logo-->
             <a class="navbar-brand" href="#"><img src="images/quizz.png" width="100px" /></a>   
             <!--Nom du site-->
@@ -24,11 +26,29 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Mon Compte
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Mes scores</a>
-                    <a class="dropdown-item" href="#">Changer de mot de passe</a>
-                    <a class="dropdown-item" href="#">Se déconnecter</a>
-                </div>
+                <?php 
+                if (isUserConnected())
+                    {
+                        ?>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Mes scores</a>
+                            <a class="dropdown-item" href="#">Changer de mot de passe</a>
+                            <a class="dropdown-item" href="#">Se déconnecter</a>
+                        </div>
+                        <?php
+                    }
+                else
+                    {
+                        ?>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="connection.php">Se connecter</a>
+                            <a class="dropdown-item" href="inscription.php">S'inscrire</a>
+                        </div>
+                        <?php
+                    }
+                ?>
+
+                
             </div> 
         </nav>
 
