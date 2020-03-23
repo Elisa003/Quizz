@@ -2,7 +2,7 @@
 {
     position: absolute;
     width: 100%; 
-    height: 50px;
+    height: 75x;
     bottom: 0;
 }
 
@@ -22,4 +22,9 @@
 {
     width: 100px;
 
+}
+
+.dropdown-item
+{
+    object-position: right;
 }
