@@ -18,9 +18,9 @@
         <!--Barre de navigation-->
         <nav class="navbar navbar-expand-sm navbar-fixed-top bg-dark navbar-dark justify-content-center">
             <!--Logo-->
-            <a class="navbar-brand" href="#"><img src="images/quizz.png" width="100px" /></a>   
+            <a class="navbar-brand" href="index.php"><img src="images/quizz.png" width="100px" /></a>   
             <!--Nom du site-->
-            <a class="navbar-brand" href="#">Quizz</a>   
+            <a class="navbar-brand" href="index.php">Quizz</a>   
             <!--Menu déroulant-->   
             <div class="dropdown ml-auto">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -31,9 +31,16 @@
                     {
                         ?>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Mes scores</a>
+                            <a class="dropdown-item" href="messcores.php">Mes scores</a>
                             <a class="dropdown-item" href="#">Changer de mot de passe</a>
-                            <a class="dropdown-item" href="#">Se déconnecter</a>
+                            <?php if ($droits=='admin')
+                                {
+                                    ?>
+                                    <a class="dropdown-item" href="#">Gestion des utilisateurs</a>
+                                    <?php
+                                }
+                            ?>
+                            <a class="dropdown-item" href="deconnection.php">Se déconnecter</a>
                         </div>
                         <?php
                     }

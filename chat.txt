@@ -1,0 +1,30 @@
+coucou sinon on peut parler ici
+alors j'ai installé un truc pour avoir le chat en plus mais ça marche pas mieux
+c'est triste
+je voulais testé l'affichage des thèmes mais comme la bdd n'est pas écrite ça marche pas mdr
+d'ailleurs comment on fait pour qu'elle se metteen ligne toute seule après ?
+la BBD ?
+base de données
+oui oui mdr
+mais qu'elle se mette en ligne ou qu'elle s'exécute dans phpMyAdmin ?
+parce que j'avais fait les scripts, mais pour qu'elle fonctionne il faut les exécuter dans phpMyAdmin... 
+mais je sais pas trop comment faire comme je suis sur ton projet si je le fais chez moi ça sert a rien si ?
+ah ça je sais pas du tout du coup
+faut tester
+je vais essayer chez moi alors
+
+ah euh je sais pas comment ça fonctionne après ^^'
+oui et il y a un insert qui donctionne pas, mais j'ai pas réussi à comprendre pourquoi --> ah je vais aller voirça !
+ça marche
+
+du coup ce que j'avais commencé à faire c'est mettre se connecter et s'inscrire dans le truc déroulant aussi
+
+dans le dropdown de "mon compte" ? oui c'est bien je pense
+et du coup j'ai mis une fonction isUserConnected, qui fait que si personne est connecté il met ça
+et si qqn est connecté il met les trucs qu'on avait mis
+parfait
+et j'ai fait les pages connections et inscription aussi du coup
+mais je savais pas comment mettre les deux en même tps à côté du coup j'ai fait deux pages différentes
+ouais c'est bien ça suffit pour l'instant ^^
+ça marche nickel
+

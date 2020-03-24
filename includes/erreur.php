@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        
+        <h1>Erreur</h1>
         <h2>Vous n'êtes pas connecté.</h2>
         <p>
             Veuillez vous <a href="connection.php">connecter</a><br/>
