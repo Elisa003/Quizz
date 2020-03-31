@@ -3,8 +3,8 @@
 function getDb(){
     // Local deployment
     $server = "localhost";
-    $username = "quizz_user";
-    $password = "user";
+    $username = "moi";
+    $password = "motdepasse";
     $db = "QUIZZ";
 
     // A VOIR PLUS TARD
@@ -15,8 +15,7 @@ function getDb(){
     $password = $url["pass"];
     $db = substr($url["path"], 1);*/
 
-    return new PDO("mysql:host=$server;dbname=$db;charset=utf8", "$username", "$password",
-    array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    return new PDO("mysql:host=$server;dbname=$db;charset=utf8", "$username", "$password",array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 }
 
 function isUserConnected() {
@@ -29,6 +28,13 @@ function escape($value) {
 
 function redirige($url) {
     header("Location: $url");
+}
+
+function getQuestion($idQest, $idTheme, $bdd) {
+    $requete = $bdd->prepare('select * from QUESTION where id_theme=? and id_question=?');
+    $requete->execute($idTheme, $idQuest);
+    $question = $requete->fetch();
+    return $question;
 }
 
 ?>
