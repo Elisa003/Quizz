@@ -3,7 +3,7 @@
 function getDb(){
     // Local deployment
     $server = "localhost";
-    $username = "moi";
+    $username = "quizz_user";
     $password = "motdepasse";
     $db = "QUIZZ";
 
@@ -14,8 +14,13 @@ function getDb(){
     $username = $url["user"];
     $password = $url["pass"];
     $db = substr($url["path"], 1);*/
-
-    return new PDO("mysql:host=$server;dbname=$db;charset=utf8", "$username", "$password",array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    //try{
+        //$bdd=
+        return new PDO("mysql:host=$server;dbname=$db;charset=utf8", "$username", "$password",array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    //}
+    //catch (Exception $e){
+      //  die('Erreur fatale :'. $e->getMessage());
+    //} 
 }
 
 function isUserConnected() {
