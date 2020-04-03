@@ -10,7 +10,10 @@
         <title>Quizz </title>
     </head>
 
-<?php require_once "includes/functions.php" ; ?>
+<?php 
+require_once "includes/functions.php" ; 
+session_start();
+?>
 
     <body>
         <!--NAVBAR-->
@@ -29,11 +32,15 @@
                 <?php 
                 if (isUserConnected())
                     {
+                        /*$ut = $_GET['login'];
+                        $requete = getDb()->prepare('select * from UTILISATEUR where login=?');
+                        $requete->execute($ut);
+                        $ut = $requete->fetch()*/
                         ?>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="messcores.php">Mes scores</a>
                             <a class="dropdown-item" href="#">Changer de mot de passe</a>
-                            <?php if ($droits=='admin')
+                            <?php if ($ut['id_utilisateur']=='admin')
                                 {
                                     ?>
                                     <a class="dropdown-item" href="#">Gestion des utilisateurs</a>
