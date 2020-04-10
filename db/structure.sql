@@ -33,6 +33,7 @@ droits VARCHAR(50) NOT NULL
 
 CREATE TABLE DIFFICULTE( 
 id_difficulte INTEGER NOT NULL PRIMARY KEY auto_increment,
+libelle VARCHAR(100) NOT NULL,
 nb_questions INTEGER NOT NULL
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 

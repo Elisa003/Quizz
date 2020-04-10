@@ -1,3 +1,10 @@
+<?php
+require_once "includes/functions.php";
+session_start();
+$bdd = getDB();
+$scores = $bdd->query('select * from GAGNE');
+?>
+
 <?php include("includes/header.php"); ?>
 
 <?php if (isUserConnected())
@@ -11,11 +18,17 @@
             </tr>
             <?php foreach ($scores as $score) 
                 { 
+                    $requete = $bdd->prepare('select libelle from THEME where id_theme=?');
+                    $requete->execute(array($score['id_theme']));
+                    $lib_theme = $requete->fetch();
+                    $requete = $bdd->prepare('select libelle from DIFFICULTE where id_difficulte=?');
+                    $requete->execute(array($score['id_difficulte']));
+                    $lib_diff = $requete->fetch();
                     ?>
                     <tr>
-                        <th><?= $score['lib_theme'] ?></th>
-                        <th><?= $score['lib_diff'] ?></th> <!--je sais pas si c'est bien not null-->
-                        <?php if ($score['temps'] not null) 
+                        <th><?= $lib_theme ?></th>
+                        <th><?= $lib_diff ?></th> 
+                        <?php if ($score['temps'] not null) //je sais pas si c'est bien not null
                             {
                                 ?>
                                 <th><?= $score['temps'] ?></th>
