@@ -20,23 +20,37 @@ $tabInd = range(1, $nbQuestTheme, 1);
 $questSelect = array_rand($tabInd, $nbQuest);
 ?>
 
-<?php if (isUserConnected()) {
+<?php if (isUserConnected()) 
+{
 ?>
     <form method="POST" action="#">
         <?php
-        foreach ($questSelect as $idQuest) {
+        foreach ($questSelect as $idQuest) 
+        {
             $question = getQuestion($idQuest, $themeId, $bdd);
             echo $question['question'] . "\n";
-            if ($question['type'] == "qcm") {
+            if ($question['type'] == "qcm") 
+            {
         ?>
                 <select name="reponse<?= $question['id_question'] ?>[]" size="4">
-                    <option value="reponsevraie"><?= $question['reponse_vraie'] ?></option>
                     <option value="reponsefausse1"><?= $question['reponse_fausse1'] ?></option>
                     <option value="reponsefausse2"><?= $question['reponse_fausse2'] ?></option>
+                    <option value="reponsevraie"><?= $question['reponse_vraie'] ?></option>
                     <option value="reponsefausse3"><?= $question['reponse_fausse3'] ?></option>
                 </select></br>
             <?php
-            } else {
+            } 
+            elseif ($question['type'] == "vrai_faux")
+            {
+                ?>
+                <label for="vrai">Vrai</label>
+                <input type="radio" name="reponse<?= $question['id_question'] ?>"/>
+                <label for="faux">Faux</label>
+                <input type="radio" name="reponse<?= $question['id_question'] ?>"/>
+                <?php
+            }
+            else 
+            {
             ?>
                 <input type="text" name="reponse<?= $question['id_question'] ?>" size="50" /><br>
         <?php
@@ -46,7 +60,9 @@ $questSelect = array_rand($tabInd, $nbQuest);
         <input type="submit" value="Envoyer">
     </form>
 <?php
-} else {
+} 
+else 
+{
     include("includes/erreur.php");
 }
 ?>

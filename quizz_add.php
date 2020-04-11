@@ -1,22 +1,43 @@
 <?php
 require_once "includes/functions.php";
 session_start();
+$bdd = getDb();
+$themes = $bdd->query('select * from THEME');
 
 if(isUserConnected()){
     // Récupérer les infos du formulaire rempli par l'utilisateur
-    if(isset($_POST['question'])){
-        $id_theme = escape($_POST['id_theme']); //faire une requête pour afficher le libellé du thème mais garder en session uniquement son id
-        $question_type = escape($_POST['type']);
+    if(isset($_POST['question']))
+    {
+        $id_theme = (int)escape($_POST['id_theme']); //faire une requête pour afficher le libellé du thème mais garder en session uniquement son id
+        $question_type = escape($_POST['type_question']);
         $question = escape($_POST['question']);
-        $reponse_vraie = escape($_POST['reponse_vraie']);
-        $reponse_fausse1 = escape($_POST['reponse_fausse1']);
-        $reponse_fausse2 = escape($_POST['reponse_fausse2']);
-        $reponse_fausse3 = escape($_POST['reponse_fausse3']);
-
+        if ($question_type == "vrai_faux")
+        {
+            $reponse_vraie = escape($_POST['vrai_faux']);
+            $reponse_fausse1 = "";
+            $reponse_fausse2 = "";
+            $reponse_fausse3 = "";
+        }
+        else
+        {
+            $reponse_vraie = escape($_POST['reponse_vraie']);
+            if ($question_type == "qcm")
+            {
+                $reponse_fausse1 = escape($_POST['reponse_fausse1']);
+                $reponse_fausse2 = escape($_POST['reponse_fausse2']);
+                $reponse_fausse3 = escape($_POST['reponse_fausse3']);
+            }
+            else
+            {
+                $reponse_fausse1 = "";
+                $reponse_fausse2 = "";
+                $reponse_fausse3 = "";
+            }
+        }
     }
 
     // Insérer la question dans BDD
-    $stmt = getDb()->prepare('INSERT INTO QUESTION (id_theme, type, question, reponse_vraie, reponse_fausse1, reponse_fausse2, reponse_fausse3) VALUES 
+    $stmt = $bdd->prepare('INSERT INTO QUESTION (id_theme, type, question, reponse_vraie, reponse_fausse1, reponse_fausse2, reponse_fausse3) VALUES 
     values (?, ?, ?, ?, ?, ?, ?)');
     $stmt->execute(array($id_theme, $question_type, $question, $reponse_vraie, $reponse_fausse1, $reponse_fausse2, $reponse_fausse3));
     redirect("index.php");
@@ -34,16 +55,19 @@ require_once "includes/header.php";
 <body>
     <div class="container">
         <h2 class="text-center">Ajouter une question</h2>
-        <form>
+        <form method="POST" action="quizz_add.php">
         <!-- Sélection du thème -->
         <div class="form-group">
             <label for="Theme">Sélectionner le thème de la question</label>
-            <select class="form-control" id="id_theme">
-                <option>Star Wars</option>
-                <option>Années 80</option>
-                <option>Jeux Vidéo</option>
-                <option>Cuisine</option>
-                <option>Géographie</option>
+            <select name="id_theme" class="form-control" ><!--id="id_theme"-->
+                <?php
+                foreach ($themes as $theme)
+                {
+                    ?>
+                    <option value="<?=$theme['id_theme']?>"><?=$theme['libelle']?></option>
+                    <?php
+                }
+                ?>
             </select>
         </div>
 
@@ -67,18 +91,18 @@ require_once "includes/header.php";
         <!-- Intitulé de la question -->
         <div class="form-group">
             <label for="QuestionIntitule">Intitulé de la question</label>
-            <input type="text" class="form-control" id="question">
+            <input type="text" name="question" class="form-control" ><!--id="question"-->
         </div>
 
         <!-- Vrai / Faux -->
         <div class="form-group"> 
-            <label for="ReponseVraiFaux">Réponse</label>
+            <label for="ReponseVraiFaux">Réponse dans le cas d'un Vrai/Faux</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="vrai_faux" id="vrai_faux1" value="vrai">
+                <input class="form-check-input" type="radio" name="vrai_faux" id="vrai_faux1" value="Vrai">
                 <label class="form-check-label" for="vrai_faux1">Vrai</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="vrai_faux" id="vrai_faux2" value="faux">
+                <input class="form-check-input" type="radio" name="vrai_faux" id="vrai_faux2" value="Faux">
                 <label class="form-check-label" for="vrai_faux2">Faux</label>
             </div>
         </div>
@@ -86,19 +110,20 @@ require_once "includes/header.php";
 
         <!-- Réponse à la question -->
         <div class="form-group">
-            <label for="ReponseOuverte">Réponse à la question</label>
-            <input type="text" class="form-control" id="reponse_vraie">
+            <label for="ReponseOuverte">Réponse à la question dans le cas d'un QCM ou d'une question ouverte</label>
+            <input type="text" name="reponse_vraie" class="form-control"> <!--id="reponse_vraie"-->
         </div>
 
         <!-- Autres réponses (fausses) -->
         <div class="form-group">
-            <label for="reponses_fausses">Autres réponses (fausses)</label>
-            <input type="text" class="form-control" id="reponse_fausse1">
+            <label for="reponses_fausses">Autres réponses (fausses) dans les cas d'un QCM</label>
+            <input type="text" name="reponse_fausse1" class="form-control" ><!--id="reponse_fausse1"-->
         
-            <input type="text" class="form-control" id="reponse_fausse2">
+            <input type="text" name="reponse_fausse2" class="form-control" ><!--id="reponse_fausse2"-->
         
-            <input type="text" class="form-control" id="reponse_fausse3">
+            <input type="text" name="reponse_fausse3" class="form-control" ><!--id="reponse_fausse3"-->
         </div>
+
         <button type="submit" class="btn btn-primary">Enregistrer</button>
         
         </form>

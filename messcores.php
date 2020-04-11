@@ -2,7 +2,12 @@
 require_once "includes/functions.php";
 session_start();
 $bdd = getDB();
-$scores = $bdd->query('select * from GAGNE');
+$login=$_SESSION['login'];
+$requete = prepare('select id_utilisateur from UTILISATEUR where login=?');
+$requete->execute(array($login));
+$idUt = $requete->fetch();
+$requete = $bdd->prepare('select * from GAGNE where id_utilisateur=?');
+$scores = $requete->execute(array($idUt))
 ?>
 
 <?php include("includes/header.php"); ?>

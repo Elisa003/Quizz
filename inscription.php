@@ -11,10 +11,9 @@ if (!empty($_POST['login']) and !empty($_POST['mdp1']) and !empty($_POST['mdp2']
     $droits='user';
 
     $requete = $bdd->prepare('count * in UTILISATEUR where login=?');
-    $requete->execute(array($login));
-    $nbUt = $requete->fetch();
+    $nbUt = $requete->execute(array($login));
 
-    if ($nbUt>0)
+    if ($nbUt->rowCount() != 0)
     {
         $error = "Ce login est déjà utilisé";
     }
