@@ -23,22 +23,22 @@ $questSelect = array_rand($tabInd, $nbQuest);
 <?php if (isUserConnected()) 
 {
 ?>
-    <form method="POST" action="#">
+    <form method="POST" action="resultat.php?id1=<?=$themeId?>?id2=<?=$diffId?>">
         <?php
         foreach ($questSelect as $idQuest) 
         {
             $question = getQuestion($idQuest, $themeId, $bdd);
-            echo $question['question'] . "\n";
+            echo $question['question'] </br>;
             if ($question['type'] == "qcm") 
             {
-        ?>
+                ?>
                 <select name="reponse<?= $question['id_question'] ?>[]" size="4">
                     <option value="reponsefausse1"><?= $question['reponse_fausse1'] ?></option>
                     <option value="reponsefausse2"><?= $question['reponse_fausse2'] ?></option>
                     <option value="reponsevraie"><?= $question['reponse_vraie'] ?></option>
                     <option value="reponsefausse3"><?= $question['reponse_fausse3'] ?></option>
                 </select></br>
-            <?php
+                <?php
             } 
             elseif ($question['type'] == "vrai_faux")
             {
@@ -51,9 +51,9 @@ $questSelect = array_rand($tabInd, $nbQuest);
             }
             else 
             {
-            ?>
+                ?>
                 <input type="text" name="reponse<?= $question['id_question'] ?>" size="50" /><br>
-        <?php
+                <?php
             }
         }
         ?>

@@ -15,9 +15,28 @@ $themes = $bdd->query('select * from THEME order by libelle');
                             <?= $theme['libelle'] ?>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="questions.php?id1=<?=$theme['id_theme']?>?id2=1">Facile</a> <!--Vérifier si ça marche bien avec id1 et id2, j'ai pas pu le faire car la récupération de la bdd ne fonctionnait pas-->
-                            <a class="dropdown-item" href="questions.php?id1=<?=$theme['id_theme']?>?id2=2">Médium</a>
-                            <a class="dropdown-item" href="questions.php?id1=<?=$theme['id_theme']?>?id2=3">Difficile</a>
+                            <?php
+                            if ($theme['nb_questions'] >= 10)
+                            {
+                                ?>
+                                <a class="dropdown-item" href="questions.php?id1=<?=$theme['id_theme']?>?id2=1">Facile</a> <!--Vérifier si ça marche bien avec id1 et id2, j'ai pas pu le faire car la récupération de la bdd ne fonctionnait pas-->
+                                <?php
+                            }
+                            if ($theme['nb_questions'] >= 15)
+                            {
+                                ?>
+                                <a class="dropdown-item" href="questions.php?id1=<?=$theme['id_theme']?>?id2=2">Médium</a>
+                                <?php
+                            }
+                            if ($theme['nb_questions'] >= 20)
+                            {
+                                ?>
+                                <a class="dropdown-item" href="questions.php?id1=<?=$theme['id_theme']?>?id2=3">Difficile</a>
+                                <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
                 </article>
                 <?php 
             }

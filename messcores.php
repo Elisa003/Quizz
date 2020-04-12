@@ -2,8 +2,8 @@
 require_once "includes/functions.php";
 session_start();
 $bdd = getDB();
-$login=$_SESSION['login'];
-$requete = prepare('select id_utilisateur from UTILISATEUR where login=?');
+$login = $_SESSION['login'];
+$requete = $bdd->prepare('select id_utilisateur from UTILISATEUR where login=?');
 $requete->execute(array($login));
 $idUt = $requete->fetch();
 $requete = $bdd->prepare('select * from GAGNE where id_utilisateur=?');
@@ -31,18 +31,18 @@ $scores = $requete->execute(array($idUt))
                     $lib_diff = $requete->fetch();
                     ?>
                     <tr>
-                        <th><?= $lib_theme ?></th>
-                        <th><?= $lib_diff ?></th> 
+                        <td><?= $lib_theme ?></td>
+                        <td><?= $lib_diff ?></td> 
                         <?php if ($score['temps'] not null) //je sais pas si c'est bien not null
                             {
                                 ?>
-                                <th><?= $score['temps'] ?></th>
+                                <td><?= $score['temps'] ?></td>
                                 <?php
                             }
                         else
                             {
                                 ?>
-                                <th><?= $score['points'] ?></th>
+                                <td><?= $score['points'] ?></td>
                                 <?php
                             }
                         ?>
