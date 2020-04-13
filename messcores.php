@@ -33,7 +33,7 @@ $scores = $requete->execute(array($idUt))
                     <tr>
                         <td><?= $lib_theme ?></td>
                         <td><?= $lib_diff ?></td> 
-                        <?php if ($score['temps'] not null) //je sais pas si c'est bien not null
+                        <?php if (!is_null($score['temps']))
                             {
                                 ?>
                                 <td><?= $score['temps'] ?></td>

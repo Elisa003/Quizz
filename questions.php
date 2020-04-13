@@ -28,7 +28,7 @@ $questSelect = array_rand($tabInd, $nbQuest);
         foreach ($questSelect as $idQuest) 
         {
             $question = getQuestion($idQuest, $themeId, $bdd);
-            echo $question['question'] </br>;
+            echo $question['question'] ;
             if ($question['type'] == "qcm") 
             {
                 ?>

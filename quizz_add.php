@@ -4,6 +4,8 @@ session_start();
 $bdd = getDb();
 $themes = $bdd->query('select * from THEME');
 
+require_once "includes/header.php";
+
 if(isUserConnected()){
     // Récupérer les infos du formulaire rempli par l'utilisateur
     if(isset($_POST['id_theme']) and isset($_POST['question']) and isset($_POST['type_question']) and isset($_POST['reponse_vraie']))
@@ -47,7 +49,7 @@ if(isUserConnected()){
         $stmt->execute(array($id_theme, $question_type, $question, $reponse_vraie, $reponse_fausse1, $reponse_fausse2, $reponse_fausse3));
         // Mise à jour du nombre de questions
         $requete = $bdd->prepare('select nb_questions from THEME where id_theme=?');
-        $requete->execute(array($id_theme))
+        $requete->execute(array($id_theme));
         $nbQuestion = $requete->fetch() + 1;
         $requete = $bdd->prepare('update THEME set nb_questions=? where id_theme=?');
         $requete->execute(array($nbQuestion, $id_theme));
@@ -66,13 +68,12 @@ else
 
 <?php
 $titrePage = "Ajouter une question";
-require_once "includes/header.php";
 ?>
 
 <body>
     <div class="container">
         <h2 class="text-center">Ajouter une question</h2>
-        <h3>Il faut un minimum de :</h3>
+        <h5>Il faut un minimum de :</h5>
         <ul>
             <li>10 questions pour le niveau facile</li>
             <li>15 questions pour le niveau médium</li>

@@ -31,8 +31,9 @@ $utilisateurs = $bdd->query('select * from UTILISATEUR');
                 <td>Administrateur</td>
                 <?php
             }
-        }
+        }?>
     </table>
+    <?php
 }
 else
     {
