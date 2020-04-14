@@ -60,7 +60,7 @@ INSERT INTO QUESTION VALUES
     (26, 2, 'qcm', "Quel est le troisième prénom de Dumbledore ?", 'Wulfric', 'Brian', 'Albus', 'Perceval'),
     (27, 2, 'qcm', "Qui sont les langues de plombs ?", 'Des sorciers qui travaillent au département des mystères', 'Des sorciers qui travaillent le plomb', 'Des sorciers qui travaillent au département des créatures magiques', 'Des objets ensorcelés'),
     (28, 2, 'qcm', "Que fait l'épouvantard ?", 'Il prend la forme de ce qui nous fait peur', 'Il nous tue', 'Il aspire notre bonheur', 'Il ne fait rien car on ne le voit pas'),
-    (29, 2, 'qcm', "Que signifie ASPIC ?", 'Accumulation de Sorcellerie Particulièrement Intensive et Contraignante', 'Aspiration de Sorcellerie Prematurement Inoffensive et Contraignante', 'Assortiment de Sorciers  Pour un Intensif Concours', 'Ca ne veur rien dire')    ;
+    (29, 2, 'qcm', "Que signifie ASPIC ?", 'Accumulation de Sorcellerie Particulièrement Intensive et Contraignante', 'Aspiration de Sorcellerie Prematurement Inoffensive et Contraignante', 'Assortiment de Sorciers  Pour un Intensif Concours', 'Ca ne veut rien dire'),
     #cuisine
     (1, 3, 'vrai_faux', "Le ttoro, soupe de poissons, est une spécialité bretonne.", 'Faux', '', '', ''),
     (2, 3, 'vrai_faux', "Le Paris-Brest est une pâtisserie composée d'une pâte à choux fourrée d'une crème au café.", 'Faux', '', '', ''),
@@ -109,8 +109,7 @@ INSERT INTO QUESTION VALUES
     (23, 4, 'qcm', "Où se situe le pont Banpo ?", 'Corée de Sud', 'Thaïlande', 'Cambodge', 'Japon'),
     (24, 4, 'qcm', "En quelle année l'Autriche a adhéré à l'Union Européenne ?", '1995', '1984', '1990', '1999'),
     (25, 4, 'qcm', "Dans quelle province canadienne se trouve la ville de Toronto ?", 'Ontario', 'Manitoba', 'Québec', 'Albreta'),
-    (26, 4, 'qcm', "Sur quel continent se trouve la Somalie ?", 'Afrique', 'Amérique', 'Océanie', 'Asie'),
-;
+    (26, 4, 'qcm', "Sur quel continent se trouve la Somalie ?", 'Afrique', 'Amérique', 'Océanie', 'Asie');
 INSERT INTO UTILISATEUR VALUES 
     (1, 'moi', 'motdepasse', 'user');
 

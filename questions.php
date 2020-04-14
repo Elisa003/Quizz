@@ -14,7 +14,7 @@ $nbQuestTheme = $requete->fetch();
 //récupération du nombre de questions associées à la difficulté
 $requete = $bdd->prepare("select nb_questions from DIFFICULTE where id_difficulte=?");
 $requete->execute(array($diffId));
-$nbQuest = $requete->fetch();
+$nbQuest = intval($requete->fetch());
 //création d'un tableau contenant l'id des questions sélectionnées pour le questionnaire
 $tabInd = range(1, $nbQuestTheme, 1);
 $questSelect = array_rand($tabInd, $nbQuest);
@@ -23,16 +23,18 @@ $questSelect = array_rand($tabInd, $nbQuest);
 <?php if (isUserConnected()) 
 {
 ?>
-    <form method="POST" action="resultat.php?id1=<?=$themeId?>?id2=<?=$diffId?>">
+    <form method="POST" action="resultat.php?id1=<?=$themeId?>&id2=<?=$diffId?>">
         <?php
-        foreach ($questSelect as $idQuest) 
+        foreach ($tabInd as $idQuest) //c'était foreach($questSelect as $idQuest) je sais pas si ça change qqchose dans le contenu des questions du coup
+        //Ah alors je crois que ça affiche toutes les questions au lieu des questions par niveaux
+        //et ça les affiche une par une ... je crois que c'était pas ce qui était prévu ^^
         {
             $question = getQuestion($idQuest, $themeId, $bdd);
             echo $question['question'] ;
             if ($question['type'] == "qcm") 
             {
                 ?>
-                <select name="reponse<?= $question['id_question'] ?>[]" size="4">
+                <select name="question<?= $question['id_question'] ?>[]" size="4">
                     <option value="reponsefausse1"><?= $question['reponse_fausse1'] ?></option>
                     <option value="reponsefausse2"><?= $question['reponse_fausse2'] ?></option>
                     <option value="reponsevraie"><?= $question['reponse_vraie'] ?></option>
@@ -55,6 +57,7 @@ $questSelect = array_rand($tabInd, $nbQuest);
                 <input type="text" name="reponse<?= $question['id_question'] ?>" size="50" /><br>
                 <?php
             }
+            $_SESSION["id_question"] = $idQuest;
         }
         ?>
         <input type="submit" value="Envoyer">

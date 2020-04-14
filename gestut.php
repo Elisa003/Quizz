@@ -1,5 +1,5 @@
 <?php
-include("include/header.php");
+include("includes/header.php");
 $bdd = getDb();
 
 $utilisateurs = $bdd->query('select * from UTILISATEUR');

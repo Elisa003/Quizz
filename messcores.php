@@ -21,7 +21,7 @@ $scores = $requete->execute(array($idUt))
                 <th>Difficulté</th>
                 <th>Score</th>
             </tr>
-            <?php foreach ($scores as $score) 
+            <?php foreach ($scores as $score) //PROBLEME
                 { 
                     $requete = $bdd->prepare('select libelle from THEME where id_theme=?');
                     $requete->execute(array($score['id_theme']));

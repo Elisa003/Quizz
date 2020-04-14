@@ -35,9 +35,9 @@ function redirige($url) {
     header("Location: $url");
 }
 
-function getQuestion($idQest, $idTheme, $bdd) {
+function getQuestion($idQuest, $idTheme, $bdd) {
     $requete = $bdd->prepare('select * from QUESTION where id_theme=? and id_question=?');
-    $requete->execute($idTheme, $idQuest);
+    $requete->execute(array($idTheme, $idQuest));
     $question = $requete->fetch();
     return $question;
 }
