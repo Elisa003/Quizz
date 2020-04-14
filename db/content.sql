@@ -82,7 +82,7 @@ INSERT INTO QUESTION VALUES
     (18, 3, 'qcm', "Où nous proposera-t-on des fajitas ?", 'Au Tex Mex', 'Au restaurant indien', 'Au restaurant libanais', 'Au restaurent marocain'),
     (19, 3, 'qcm', "Dans quel restaurant sert-on de la soupe 'Pho' ?", 'Vietnamien', 'Chinois', 'Cambodjien', 'Thaïlandais'),
     (20, 3, 'qcm', "Spécialité anglaise, qu'est-ce que le black pudding ?", 'Du boudin noir', 'Un pâté aux rogons de mouton', 'Un fondant au chocolat', 'Un plat à base de Marmite'),
-    (21 3, 'qcm', "Quel est le nom du ragoût de veau basque ?", 'Axoa', 'Ttoro', 'Tripota', 'Muxu'),
+    (21, 3, 'qcm', "Quel est le nom du ragoût de veau basque ?", 'Axoa', 'Ttoro', 'Tripota', 'Muxu'),
     (22, 3, 'qcm', "Le bourou bourou est une soupe de légumes et de pâtes, de quel pays est-elle la spécialité ?", 'Grèce', 'Gabon', 'Liban', 'Inde'),
     #Géographie
     (1, 4, 'qcm', "Laquelle de ces villes n'est pas une capitale ?", 'Amalty', 'Skopje', 'Tirana', 'Noursoultan'),

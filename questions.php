@@ -16,8 +16,8 @@ $requete = $bdd->prepare("select nb_questions from DIFFICULTE where id_difficult
 $requete->execute(array($diffId));
 $nbQuest = intval($requete->fetch());
 //création d'un tableau contenant l'id des questions sélectionnées pour le questionnaire
-$tabInd = range(1, $nbQuestTheme, 1);
-$questSelect = array_rand($tabInd, $nbQuest);
+$tabInd = range(1, $nbQuestTheme, 1); // tableau [|1;2;3;...;$nbQuestTheme|]
+$questSelect = array(array_rand($tabInd, $nbQuest)); // sélectionne $nbQuest éléments dans $tabInd et les met dans $questSelect
 ?>
 
 <?php if (isUserConnected()) 
@@ -25,16 +25,17 @@ $questSelect = array_rand($tabInd, $nbQuest);
 ?>
     <form method="POST" action="resultat.php?id1=<?=$themeId?>&id2=<?=$diffId?>">
         <?php
-        foreach ($tabInd as $idQuest) //c'était foreach($questSelect as $idQuest) je sais pas si ça change qqchose dans le contenu des questions du coup
+        foreach ($questSelect as $idQuest) //c'était foreach($questSelect as $idQuest) je sais pas si ça change qqchose dans le contenu des questions du coup
         //Ah alors je crois que ça affiche toutes les questions au lieu des questions par niveaux
         //et ça les affiche une par une ... je crois que c'était pas ce qui était prévu ^^
+        // c'est bien $questSelect car sinon c'est effectivement toutes les questions
         {
             $question = getQuestion($idQuest, $themeId, $bdd);
             echo $question['question'] ;
             if ($question['type'] == "qcm") 
             {
-                ?>
-                <select name="question<?= $question['id_question'] ?>[]" size="4">
+                ?></br>
+                <select name="reponse<?= $question['id_question'] ?>[]" size="4">
                     <option value="reponsefausse1"><?= $question['reponse_fausse1'] ?></option>
                     <option value="reponsefausse2"><?= $question['reponse_fausse2'] ?></option>
                     <option value="reponsevraie"><?= $question['reponse_vraie'] ?></option>
@@ -44,7 +45,7 @@ $questSelect = array_rand($tabInd, $nbQuest);
             } 
             elseif ($question['type'] == "vrai_faux")
             {
-                ?>
+                ?></br>
                 <label for="vrai">Vrai</label>
                 <input type="radio" name="reponse<?= $question['id_question'] ?>"/>
                 <label for="faux">Faux</label>
@@ -53,7 +54,7 @@ $questSelect = array_rand($tabInd, $nbQuest);
             }
             else 
             {
-                ?>
+                ?></br>
                 <input type="text" name="reponse<?= $question['id_question'] ?>" size="50" /><br>
                 <?php
             }

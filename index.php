@@ -5,7 +5,7 @@
 <?php if (isUserConnected())
     {
         ?>
-        <h3><a href="thèmes.php">Voir tous les films</a></h3>
+        <h4><a href="thèmes.php">Voir tous les thèmes</a></h4>
         <?php
         $login = $_SESSION['login'];
         $bdd = getDb();
@@ -15,7 +15,7 @@
         if ($droits == "admin")
         {
             ?>
-            <h3><a href="quizz_add.php">Ajouter un thème/une question</a></h3>
+            <h4><a href="quizz_add.php">Ajouter un thème/une question</a></h4>
             <?php
         }
     }

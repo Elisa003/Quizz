@@ -40,7 +40,13 @@ session_start();
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="messcores.php">Mes scores</a>
                             <a class="dropdown-item" href="modifmdp.php">Changer de mot de passe</a>
-                            <?php if ($ut['id_utilisateur']=='admin')
+                            <?php 
+                            $login = $_SESSION['login'];
+                            $bdd = getDb();
+                            $requete = $bdd->prepare('select * from UTILISATEUR where login=?');
+                            $requete->execute(array($login));
+                            $utilisateur = $requete->fetch();
+                            if ($utilisateur['id_utilisateur']=="admin")
                                 {
                                     ?>
                                     <a class="dropdown-item" href="gestut.php">Gestion des utilisateurs</a>

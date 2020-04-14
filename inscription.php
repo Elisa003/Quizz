@@ -13,9 +13,9 @@ if (!empty($_POST['login']) and !empty($_POST['mdp1']) and !empty($_POST['mdp2']
     $requete = $bdd->prepare("SELECT COUNT(id_utilisateur) FROM UTILISATEUR WHERE login= ?");
     $nbUt = $requete->execute(array($login));
 
-    if (($requete->rowCount()) != 0)
+    if ($nbUt ==1 )
     {
-        $error = "Ce login est déjà utilisé";
+        $error = "Ce login est déjà utilisé" ;
     }
 
     elseif ($password1 != $password2)
