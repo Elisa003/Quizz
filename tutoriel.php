@@ -1,6 +1,7 @@
 <!--On arrive ici après l'inscription-->
 
-<?php include("includes/header.php"); ?>
+<?php session_start();
+include("includes/header.php"); ?>
 
 <?php include("includes/carousel.php"); ?>
 

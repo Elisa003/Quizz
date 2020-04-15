@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include("includes/header.php"); 
 $bdd=getDb();
 $themes = $bdd->query('select * from THEME order by libelle');
