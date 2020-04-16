@@ -10,8 +10,11 @@ if (!empty($_POST['login']) and !empty($_POST['mdp1']) and !empty($_POST['mdp2']
     $password2 = $_POST['mdp2'];
     $droits='user';
 
-    $requete = $bdd->prepare("SELECT COUNT(id_utilisateur) FROM UTILISATEUR WHERE login= ?");
-    $nbUt = $requete->execute(array($login));
+
+    $requete = $bdd->prepare("SELECT * FROM UTILISATEUR WHERE login= ?");
+    $requete->execute(array($login));
+    $nbUt = $requete->rowCount();
+    
 
     if ($nbUt ==1 )
     {
@@ -26,9 +29,8 @@ if (!empty($_POST['login']) and !empty($_POST['mdp1']) and !empty($_POST['mdp2']
     else
     {
         //insertion de l'utilisateur dans la bdd
-        $stmt = $bdd->prepare('INSERT INTO UTILISATEUR (login, mdp, droits) VALUES 
-        values (?, ?, ?)');
-        $stmt->execute(array($login, $password, $droits));
+        $stmt = $bdd->prepare('INSERT INTO UTILISATEUR (login, mdp, droits) VALUES (?, ?, ?)');
+        $stmt->execute(array($login, $password1, $droits));
         $_SESSION['login'] = $login;
         redirige("index.php");
     }

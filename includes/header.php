@@ -45,7 +45,7 @@ require_once "includes/functions.php" ;
                             $requete = $bdd->prepare('select * from UTILISATEUR where login=?');
                             $requete->execute(array($login));
                             $utilisateur = $requete->fetch();
-                            if ($utilisateur['id_utilisateur']=="admin")
+                            if ($utilisateur['droits']=="admin")
                                 {
                                     ?>
                                     <a class="dropdown-item" href="gestut.php">Gestion des utilisateurs</a>

@@ -1,16 +1,17 @@
 <?php
 require_once "includes/functions.php";
-session_start();
+//session_start();
 $bdd = getDb();
 $themes = $bdd->query('select * from THEME');
 
 require_once "includes/header.php";
 
-if(isUserConnected()){
+//if(isUserConnected()){
     // Récupérer les infos du formulaire rempli par l'utilisateur
     if(isset($_POST['id_theme']) and isset($_POST['question']) and isset($_POST['type_question']) and isset($_POST['reponse_vraie']))
     {
         $id_theme = (int)escape($_POST['id_theme']); //faire une requête pour afficher le libellé du thème mais garder en session uniquement son id
+        echo "id_theme : " .$id_theme;
         $question_type = escape($_POST['type_question']);
         $question = escape($_POST['question']);
         if ($question_type == "vrai_faux")
@@ -46,23 +47,28 @@ if(isUserConnected()){
         // Insérer la question dans BDD
         $stmt = $bdd->prepare('INSERT INTO QUESTION (id_theme, type, question, reponse_vraie, reponse_fausse1, reponse_fausse2, reponse_fausse3) 
         values (?, ?, ?, ?, ?, ?, ?)');
+
+
+        //INSERT INTO QUESTION (id_question)
+SELECT TOP 1 id_question FROM QUESTION ORDER BY id_question DESC;
+
+        // INSERT INTO QUESTION (id_theme, type, question, reponse_vraie, reponse_fausse1, reponse_fausse2, reponse_fausse3) 
+        values (3, 'qcm', 'Quelle est la durée de cuisson des oeufs mmollets ?', '8 minutes', '6 minutes', '7 minutes', '9 minutes')
+        SELECT 
+
+
         $stmt->execute(array($id_theme, $question_type, $question, $reponse_vraie, $reponse_fausse1, $reponse_fausse2, $reponse_fausse3));
         // Mise à jour du nombre de questions
-        $requete = $bdd->prepare('select nb_questions from THEME where id_theme=?');
+        $requete = $bdd->prepare('select * from THEME where id_theme=?');
         $requete->execute(array($id_theme));
-        $nbQuestion = $requete->fetch() + 1;
+        $theme = $requete->fetch();
+
+        $nbQuestion = $theme['nb_questions'];
+        $nbQuestion = intval($nbQuestion) + 1;
         $requete = $bdd->prepare('update THEME set nb_questions=? where id_theme=?');
         $requete->execute(array($nbQuestion, $id_theme));
     }
-
-    redirige("quizz_add.php");
-}
-else
-    {
-        include("includes/erreur.php");
-    }
 ?>
-
 <!doctype html>
 <html>
 
@@ -160,3 +166,12 @@ $titrePage = "Ajouter une question";
 
 </body>
 </html>
+<?php
+    redirige("quizz_add.php");
+/*}
+else
+    {
+        include("includes/erreur.php");
+    }*/
+?>
+

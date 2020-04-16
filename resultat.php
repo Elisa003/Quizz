@@ -34,8 +34,13 @@ foreach ($elements as $idQ)
 $requete = $bdd->prepare('select * from GAGNE where id_theme=? and id_difficulte=? and id_utilisateur=?');
 $requete->execute(array($themeId, $diffId, $utilisateur['id_utilisateur']));
 $scores = $requete->fetch();
-$requete = $bdd->prepare('select count(id_utilisateur) from GAGNE where id_theme=? and id_difficulte=? and id_utilisateur=?'); //là il doit y avoir
-$nbScores = $requete->execute(array($themeId, $diffId, $utilisateur['id_utilisateur']));//moyen de faire autrement, mais sinon j'avais des erreurs
+
+$requete = $bdd->prepare('select * from GAGNE where id_theme=? and id_difficulte=? and id_utilisateur=?'); //là il doit y avoir
+$requete->execute(array($themeId, $diffId, $utilisateur['id_utilisateur']));//moyen de faire autrement, mais sinon j'avais des erreurs
+$nbScores = $requete->rowCount();
+echo "tests : ";
+echo "utilisateur : " .$utilisateur['id_utilisateur'];
+echo "/ nbscore : " .$nbScores;
 if ($nbScores == 1)
 {
   if (is_null($scores['temps']))
