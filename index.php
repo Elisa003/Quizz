@@ -10,9 +10,10 @@ include("includes/header.php"); ?>
         <?php
         $login = $_SESSION['login'];
         $bdd = getDb();
-        $requete = $bdd->prepare('select droits from UTILISATEUR where login=?');
+        $requete = $bdd->prepare('select * from UTILISATEUR where login=?');
         $requete->execute(array($login));
-        $droits = $requete->fetch();
+        $utilisateurs = $requete->fetch();
+        $droits = $utilisateurs['droits'];
         if ($droits == "admin")
         {
             ?>

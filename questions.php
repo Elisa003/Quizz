@@ -3,6 +3,8 @@ session_start();
 require_once "includes/header.php" ;
 require_once "includes/functions.php" ;
 
+$dateDebut = time();
+$_SESSION['date_debut'] = $dateDebut;
 
 $themeId = $_GET['id1'];
 $diffId = $_GET['id2'];
@@ -29,7 +31,7 @@ $questSelect = array_rand($tabInd, $nbQuest); // sélectionne $nbQuest élément
 <?php if (isUserConnected()) 
 {
 ?>
-    <form method="POST" action="resultat.php?id1=<?=$themeId?>&id2=<?=$diffId?>">
+    <form method="POST" id="formulaire" action="resultat.php?id1=<?=$themeId?>&id2=<?=$diffId?>">
         <?php
         $tableau = array();
         foreach ($questSelect as $idQuest) 
@@ -83,5 +85,20 @@ else
 ?>
 
 <?php include("includes/footer.php"); ?>
+<?php
+//while (time() < $dateDebut+90);
+while (time() < $dateDebut+90);
+?>
+    <script type="text/javascript">
+        document.getElementByld('formulaire').submit()
+    </script>
+    <?php
+    redirige("resultat.php?id1=".$themeId."&id2=".$diffId);
+
+    
+
+
+
+?>
 
 <!-- https://www.php.net/manual/fr/event.addtimer.php -->

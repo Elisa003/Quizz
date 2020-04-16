@@ -39,12 +39,11 @@
     width: 15%;
 }
 
-.containerForm
+.conteneur
 {
-    border: 10px;
-    border-color: black;
+    /*border-color: black;
     margin-top: 50px;
-    object-position: center;
-    background-color: lightgrey;
-    width: 15%;
+    object-position: center;*/
+    background-color: lightgray;
+    /*width: 15%;*/
 }

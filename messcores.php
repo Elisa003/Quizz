@@ -3,11 +3,14 @@ require_once "includes/functions.php";
 session_start();
 $bdd = getDB();
 $login = $_SESSION['login'];
-$requete = $bdd->prepare('select id_utilisateur from UTILISATEUR where login=?');
+$requete = $bdd->prepare('select * from UTILISATEUR where login=?');
 $requete->execute(array($login));
-$idUt = $requete->fetch();
+$utilisateurs = $requete->fetch();
+$idUt = $utilisateurs['id_utilisateur'];
+//$scores = $bdd->query('select * from GAGNE where id_utilisateur=1');
 $requete = $bdd->prepare('select * from GAGNE where id_utilisateur=?');
-$scores = $requete->execute(array($idUt))
+$requete->execute(array($idUt));
+$scores = $requete->fetchAll();
 ?>
 
 <?php include("includes/header.php"); ?>
@@ -21,23 +24,28 @@ $scores = $requete->execute(array($idUt))
                 <th>Difficulté</th>
                 <th>Score</th>
             </tr>
-            <?php foreach ($scores as $score) //PROBLEME
+            <?php 
+            
+                foreach ($scores as $score)
                 { 
-                    $requete = $bdd->prepare('select libelle from THEME where id_theme=?');
-                    $requete->execute(array($score['id_theme']));
-                    $lib_theme = $requete->fetch();
-                    $requete = $bdd->prepare('select libelle from DIFFICULTE where id_difficulte=?');
+                    $id_theme = $score['id_theme'];
+                    $requete = $bdd->prepare('select * from THEME where id_theme=?');
+                    $requete->execute(array($id_theme));
+                    $theme = $requete->fetch();
+                    $lib_theme = $theme['libelle'];
+                    $requete = $bdd->prepare('select * from DIFFICULTE where id_difficulte=?');
                     $requete->execute(array($score['id_difficulte']));
-                    $lib_diff = $requete->fetch();
+                    $difficulte = $requete->fetch();
+                    $lib_diff = $difficulte['libelle'];
                     ?>
                     <tr>
                         <td><?= $lib_theme ?></td>
                         <td><?= $lib_diff ?></td> 
                         <?php if (!is_null($score['temps']))
                             {
-                                ?>
-                                <td><?= $score['temps'] ?></td>
-                                <?php
+                                $secondes = $score % 60;
+                                $minute = $score / 60;
+                                echo $minute.' minute et '.$secondes.' secondes';
                             }
                         else
                             {
@@ -50,6 +58,10 @@ $scores = $requete->execute(array($idUt))
                     </tr>
                     <?php 
                 }
+            
+            
+
+
             ?>
         </table>
         <?php

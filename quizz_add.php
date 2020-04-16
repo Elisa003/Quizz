@@ -1,12 +1,12 @@
 <?php
 require_once "includes/functions.php";
-//session_start();
+session_start();
 $bdd = getDb();
 $themes = $bdd->query('select * from THEME');
 
 require_once "includes/header.php";
 
-//if(isUserConnected()){
+if(isUserConnected()){
     // Récupérer les infos du formulaire rempli par l'utilisateur
     if(isset($_POST['id_theme']) and isset($_POST['question']) and isset($_POST['type_question']) and isset($_POST['reponse_vraie']))
     {
@@ -47,16 +47,6 @@ require_once "includes/header.php";
         // Insérer la question dans BDD
         $stmt = $bdd->prepare('INSERT INTO QUESTION (id_theme, type, question, reponse_vraie, reponse_fausse1, reponse_fausse2, reponse_fausse3) 
         values (?, ?, ?, ?, ?, ?, ?)');
-
-
-        //INSERT INTO QUESTION (id_question)
-SELECT TOP 1 id_question FROM QUESTION ORDER BY id_question DESC;
-
-        // INSERT INTO QUESTION (id_theme, type, question, reponse_vraie, reponse_fausse1, reponse_fausse2, reponse_fausse3) 
-        values (3, 'qcm', 'Quelle est la durée de cuisson des oeufs mmollets ?', '8 minutes', '6 minutes', '7 minutes', '9 minutes')
-        SELECT 
-
-
         $stmt->execute(array($id_theme, $question_type, $question, $reponse_vraie, $reponse_fausse1, $reponse_fausse2, $reponse_fausse3));
         // Mise à jour du nombre de questions
         $requete = $bdd->prepare('select * from THEME where id_theme=?');
@@ -75,9 +65,16 @@ SELECT TOP 1 id_question FROM QUESTION ORDER BY id_question DESC;
 <?php
 $titrePage = "Ajouter une question";
 ?>
-
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <title>Quizz </title>
+</head>
 <body>
-    <div class="container">
+    <div class="conteneur">
         <h2 class="text-center">Ajouter une question</h2>
         <h5>Il faut un minimum de :</h5>
         <ul>
@@ -85,11 +82,11 @@ $titrePage = "Ajouter une question";
             <li>15 questions pour le niveau médium</li>
             <li>20 questions pour le niveau difficile</li>
         </ul>
-        <form method="POST" action="quizz_add.php">
+        <form method="POST" action="quizz_add.php" class="needs-validation" novalidate>
         <!-- Sélection du thème -->
         <div class="form-group">
             <label for="Theme">Sélectionner le thème de la question</label>
-            <select name="id_theme" class="form-control" ><!--id="id_theme"-->
+            <select name="id_theme" class="form-control"><!--id="id_theme"-->
                 <?php
                 foreach ($themes as $theme)
                 {
@@ -128,7 +125,8 @@ $titrePage = "Ajouter une question";
         <!-- Intitulé de la question -->
         <div class="form-group">
             <label for="QuestionIntitule">Intitulé de la question</label>
-            <input type="text" name="question" class="form-control"/><!--id="question"-->
+            <input type="text" name="question" class="form-control" required/><!--id="question"-->
+            <div class="invalid-feedback">Veuillez entrer une question</div>
         </div>
 
         <!-- Vrai / Faux -->
@@ -168,10 +166,10 @@ $titrePage = "Ajouter une question";
 </html>
 <?php
     redirige("quizz_add.php");
-/*}
+}
 else
     {
         include("includes/erreur.php");
-    }*/
+    }
 ?>
 
