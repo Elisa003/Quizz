@@ -39,10 +39,6 @@ if(isUserConnected()){
                 $reponse_fausse2 = escape($_POST['reponse_fausse2']);
                 $reponse_fausse3 = escape($_POST['reponse_fausse3']);
             }
-            /*else
-            {
-                $error = "Il manque des paramètres";
-            }*/
         }
         if (!isset($error))
         {
@@ -56,11 +52,9 @@ if(isUserConnected()){
                 $requete = $bdd->prepare('select * from THEME where libelle=?');
                 $requete->execute(array($nom_theme));
                 $themes = $requete->fetch();
-                $id_theme = $themes['id_theme'];
-
-                
+                $id_theme = $themes['id_theme']; 
             }
-            // Mise à jour du nombre de questions
+            // Mise à jour du nombre de questions dans la table THEME
             $requete = $bdd->prepare('select * from THEME where id_theme=?');
             $requete->execute(array($id_theme));
             $themes = $requete->fetch();
@@ -74,13 +68,7 @@ if(isUserConnected()){
             $stmt = $bdd->prepare('INSERT INTO QUESTION (id_theme, id_question, type, question, reponse_vraie, reponse_fausse1, reponse_fausse2, reponse_fausse3) 
             values (?, ?, ?, ?, ?, ?, ?, ?)');
             $stmt->execute(array($id_theme, $nbQuestion, $question_type, $question, $reponse_vraie, $reponse_fausse1, $reponse_fausse2, $reponse_fausse3));
-
         }
     }
-    /*else
-    {
-        $error = "Il manque des paramètres";
-    }*/
 }
-redirige("quizz_add.php");
-?>
+redirige("quizz_add.php");?>

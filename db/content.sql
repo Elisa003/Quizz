@@ -1,10 +1,13 @@
+--Insertion des thèmes dans la table THEME
+--id_theme, libelle, nb_questions
 INSERT INTO THEME VALUES 
-(1, 'Star Wars', 24),
+(1, 'Star Wars', 24), 
 (2, 'Harry Potter', 29),
 (3, 'Cuisine', 22),
 (4, 'Géographie', 26);
 
-
+--Insertion des questions dans la table QUESTION
+--id_question, id_theme, type, libelle, reponse_vraie, reponse_fausse1, reponse_fausse2, reponse_fausse3
 INSERT INTO QUESTION VALUES 
     #star wars
     (1, 1, 'qcm', 'De quelle planète vient Anakin Skywalker ?', 'Tatooine', 'Endor', 'Hoth', 'Jakku'),
@@ -88,7 +91,7 @@ INSERT INTO QUESTION VALUES
     (1, 4, 'qcm', "Laquelle de ces villes n'est pas une capitale ?", 'Amalty', 'Skopje', 'Tirana', 'Noursoultan'),
     (2, 4, 'qcm', "Quelle langue parle-t-on au Chili ?", 'Espagnol', 'Portigais', 'Italien', 'Français'),
     (3, 4, 'qcm', "De quel pays l'ouguiya est-elle la monnaie ?", 'Mauritanie', 'Burkina Faso', 'Ghana', 'Gabon'),
-    (4, 4, 'qcm', "Quel est lecode Insee de La Réunion ?", '974', '972', '973', '975'),
+    (4, 4, 'qcm', "Quel est numéro de département de l'Oise ?", '60', '58', '59', '61'),
     (5, 4, 'qcm', "Sur quel continent se situe le Sri Lanka ?", 'Asie', 'Océanie', 'Afrique', 'Europe'),
     (6, 4, 'qcm', "Quelle est la capitale constitutionnelle de la Bolivie ?", 'Sucre', 'La Paz', 'Bogota', 'Santa Cruz de la Sierra'),
     (7, 4, 'qcm', "De quel pays le Pérou est-il devenu indépendant le 28 Juillet 1821 ?", 'Espagne', 'Italie', 'Portugal', 'France'),
@@ -111,10 +114,18 @@ INSERT INTO QUESTION VALUES
     (24, 4, 'qcm', "En quelle année l'Autriche a adhéré à l'Union Européenne ?", '1995', '1984', '1990', '1999'),
     (25, 4, 'qcm', "Dans quelle province canadienne se trouve la ville de Toronto ?", 'Ontario', 'Manitoba', 'Québec', 'Albreta'),
     (26, 4, 'qcm', "Sur quel continent se trouve la Somalie ?", 'Afrique', 'Amérique', 'Océanie', 'Asie');
+
+--Insertion de l'admin dans la table UTILISATEUR
+--id_utilisateur, login, mdp, droits
 INSERT INTO UTILISATEUR VALUES 
     (1, 'moi', 'motdepasse', 'admin');
 
+--Insertion des niveaux de difficulté dans la table DIFFICULTE
+--id_difficulte, libelle, nb_questions
 INSERT INTO DIFFICULTE VALUES 
     (1, 'Facile', 10),
     (2, 'Medium', 15),
     (3, 'Difficile', 20);
+
+--Aucune insertion dans la table GAGNE
+-- car enregistre les résultats des utilisateurs 

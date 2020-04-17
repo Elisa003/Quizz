@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "includes/header.php" ;
-require_once "includes/functions.php" ;
+require_once "includes/header.php";
+require_once "includes/functions.php";
 
 $dateDebut = time();
 $_SESSION['date_debut'] = $dateDebut;
@@ -26,65 +26,54 @@ $nbQuest = $difficulte['nb_questions'];
 $tabInd = range(1, $nbQuestTheme, 1); // tableau [|1;2;3;...;$nbQuestTheme|]
 $questSelect = array_rand($tabInd, $nbQuest); // sélectionne $nbQuest éléments dans $tabInd et les met dans $questSelect
 
+//si l'utilisateur est connecté
+if (isUserConnected()) {
 ?>
-
-<?php if (isUserConnected()) 
-{
-?>
-    <form method="POST" id="formulaire" action="resultat.php?id1=<?=$themeId?>&id2=<?=$diffId?>">
+    <form method="POST" id="formulaire" action="resultat.php?id1=<?= $themeId ?>&id2=<?= $diffId ?>">
         <?php
         $tableau = array();
-        foreach ($questSelect as $idQuest) 
-        {
-            $question = getQuestion($idQuest+1, $themeId, $bdd);
+        foreach ($questSelect as $idQuest) {
+            //récupère la question correspondant au 1er id du tableau 
+            $question = getQuestion($idQuest + 1, $themeId, $bdd);
             array_push($tableau, $question['id_question']);
-            ?>
+        ?>
             <div class="form-group">
                 <label><?= $question['question'] ?></label>
-            <?php
-            
-            if ($question['type'] == "qcm") 
-            {
-                ?></br>
-                <select class="form-control" name="reponse<?= $question['id_question'] ?>" size="4" required>
-                    <option value="reponse_fausse1"><?= $question['reponse_fausse1'] ?></option>
-                    <option value="reponse_fausse2"><?= $question['reponse_fausse2'] ?></option>
-                    <option value="reponse_vraie"><?= $question['reponse_vraie'] ?></option>
-                    <option value="reponse_fausse3"><?= $question['reponse_fausse3'] ?></option>
-                </select></br>
-                <div class="invalid-feedback">Veuillez sélectionner une réponse</div>
                 <?php
-            } 
-            elseif ($question['type'] == "vrai_faux")
-            {
+
+                if ($question['type'] == "qcm") {
                 ?></br>
-                <label for="Vrai">Vrai</label>
-                <input type="radio" name="reponse<?= $question['id_question']?>" value="Vrai" required/>
-                <label for="Faux">Faux</label>
-                <input type="radio" name="reponse<?= $question['id_question']?>" value="Faux" required/>
-                <div class="invalid-feedback">Veuillez sélectionner une réponse</div>
+                    <select class="form-control" name="reponse<?= $question['id_question'] ?>" size="4" required>
+                        <option value="reponse_fausse1"><?= $question['reponse_fausse1'] ?></option>
+                        <option value="reponse_fausse2"><?= $question['reponse_fausse2'] ?></option>
+                        <option value="reponse_vraie"><?= $question['reponse_vraie'] ?></option>
+                        <option value="reponse_fausse3"><?= $question['reponse_fausse3'] ?></option>
+                    </select></br>
+                    <div class="invalid-feedback">Veuillez sélectionner une réponse</div>
                 <?php
-            }
-            else 
-            {
+                } elseif ($question['type'] == "vrai_faux") {
                 ?></br>
-                <input type="text" name="reponse<?= $question['id_question']?>" size="50" required/><br>
-                <div class="invalid-feedback">Veuillez sélectionner une réponse</div>
+                    <label for="Vrai">Vrai</label>
+                    <input type="radio" name="reponse<?= $question['id_question'] ?>" value="Vrai" required />
+                    <label for="Faux">Faux</label>
+                    <input type="radio" name="reponse<?= $question['id_question'] ?>" value="Faux" required />
+                    <div class="invalid-feedback">Veuillez sélectionner une réponse</div>
                 <?php
-            }?>
+                } else {
+                ?></br>
+                    <input type="text" name="reponse<?= $question['id_question'] ?>" size="50" required /><br>
+                    <div class="invalid-feedback">Veuillez sélectionner une réponse</div>
+                <?php
+                } ?>
             </div>
-            <?php
+        <?php
         }
         $_SESSION['liste_elements'] = $tableau;
         ?>
-        <input id="envoyerBtn" type="submit" value="Envoyer"/>
+        <input id="envoyerBtn" type="submit" value="Envoyer" />
     </form>
 <?php
-} 
-else 
-{
+} else {
     include("includes/erreur.php");
 }
-?>
-
-<?php include("includes/footer.php"); ?>
+include("includes/footer.php"); ?>

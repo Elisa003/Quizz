@@ -1,5 +1,6 @@
 <?php
-function getDb(){
+function getDb()
+{
     // Local deployment
     $server = "localhost";
     $username = "quizz_user";
@@ -14,29 +15,34 @@ function getDb(){
     $password = $url["pass"];
     $db = substr($url["path"], 1);*/
     //try{
-        //$bdd=
-        return new PDO("mysql:host=$server;dbname=$db;charset=utf8", "$username", "$password",array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    //$bdd=
+    return new PDO("mysql:host=$server;dbname=$db;charset=utf8", "$username", "$password", array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     //}
     //catch (Exception $e){
-      //  die('Erreur fatale :'. $e->getMessage());
+    //  die('Erreur fatale :'. $e->getMessage());
     //} 
 }
 
-function isUserConnected() {
+function isUserConnected()
+{
     return isset($_SESSION['login']);
 }
 
-function escape($value) {
+function escape($value)
+{
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false);
 }
 
-function redirige($url) {
+function redirige($url)
+{
     header("Location: $url");
 }
 
-function getQuestion($idQuest, $idTheme, $bdd) {
+function getQuestion($idQuest, $idTheme, $bdd)
+{
     $requete = $bdd->prepare('select * from QUESTION where id_theme=? and id_question=?');
     $requete->execute(array($idTheme, $idQuest));
     $question = $requete->fetch();
     return $question;
-}?>
+}
+?>

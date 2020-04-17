@@ -4,11 +4,10 @@ include("includes/header.php");
 $bdd = getDb();
 
 $utilisateurs = $bdd->query('select * from UTILISATEUR');
-?>
 
-<?php if (isUserConnected())
-{
-    ?>
+//vérification que l'utilisateur est connecté
+if (isUserConnected()) {
+?>
     <h2>Gestion des utilisateurs :</h2>
     <table>
         <tr>
@@ -16,35 +15,30 @@ $utilisateurs = $bdd->query('select * from UTILISATEUR');
             <th>Droits</th>
         </tr>
         <?php
-        foreach ($utilisateurs as $utilisateur)
-        {
-            ?>
+        foreach ($utilisateurs as $utilisateur) {
+        ?>
             <tr>
-                <td><?=$utilisateur['login']?></td>
+                <td><?= $utilisateur['login'] ?></td>
                 <?php
-                if ($utilisateur['droits'] == "user")
-                {
-                    ?>
-                    <td>Simple utilisateur</br><a href="admin.php?id=<?=$utilisateur['id_utilisateur']?>">Passer administrateur</a></td>
-                    <?php
-                }
-                else
-                {
-                    ?>
+                //si l'utilisateur est un "simple user", possibilité de le passer en admin
+                if ($utilisateur['droits'] == "user") {
+                ?>
+                    <td>Simple utilisateur</br><a href="admin.php?id=<?= $utilisateur['id_utilisateur'] ?>">Passer administrateur</a></td>
+                <?php
+                } else { //sinon afficher administrateur
+                ?>
                     <td>Administrateur</td>
-                    <?php
+                <?php
                 }
                 ?>
             </tr>
-            <?php
-        }?>
+        <?php
+        } ?>
     </table>
-    <?php
+<?php
+} else {
+    include("includes/erreur.php");
 }
-else
-    {
-        include("includes/erreur.php");
-    }
 ?>
 
 <?php include("includes/footer.php"); ?>
