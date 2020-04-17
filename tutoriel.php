@@ -1,8 +1,7 @@
-<!--On arrive ici après l'inscription-->
-
-<?php session_start();
+<?php
+session_start();
 include("includes/header.php"); ?>
-
+<!--On arrive ici après l'inscription-->
 <?php if (isUserConnected())
     {
         ?>

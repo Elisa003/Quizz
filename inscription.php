@@ -1,6 +1,8 @@
 <?php
-require_once "includes/functions.php";
 session_start();
+
+require_once "includes/functions.php";
+
 $bdd = getDB();
 
 if (!empty($_POST['login']) and !empty($_POST['mdp1']) and !empty($_POST['mdp2'])) 

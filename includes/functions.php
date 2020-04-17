@@ -1,5 +1,4 @@
 <?php
-
 function getDb(){
     // Local deployment
     $server = "localhost";
@@ -40,6 +39,4 @@ function getQuestion($idQuest, $idTheme, $bdd) {
     $requete->execute(array($idTheme, $idQuest));
     $question = $requete->fetch();
     return $question;
-}
-
-?>
+}?>

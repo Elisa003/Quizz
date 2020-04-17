@@ -1,6 +1,6 @@
 <?php
-require_once "includes/functions.php";
 session_start();
+require_once "includes/functions.php";
 $bdd = getDb();
 $idUt = $_GET['id'];
 $login = $_SESSION['login'];

@@ -7,12 +7,11 @@ DROP TABLE if exists GAGNE;
 CREATE TABLE THEME( 
 id_theme INTEGER NOT NULL PRIMARY KEY auto_increment, 
 libelle VARCHAR(100) NOT NULL, 
-nb_questions INTEGER NOT NULL, 
-images VARCHAR(100)
+nb_questions INTEGER NOT NULL
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
 CREATE TABLE QUESTION( 
-id_question INTEGER NOT NULL auto_increment, 
+id_question INTEGER NOT NULL, 
 id_theme INTEGER  NOT NULL,
 type VARCHAR(50) NOT NULL, 
 question VARCHAR(200) NOT NULL,

@@ -1,12 +1,14 @@
 <?php
-require_once "includes/functions.php";
 session_start();
+require_once "includes/functions.php";
+
 $bdd = getDb();
 $themes = $bdd->query('select * from THEME');
 
 require_once "includes/header.php";
 
 if(isUserConnected()){
+    /*
     // Récupérer les infos du formulaire rempli par l'utilisateur
     if(isset($_POST['id_theme']) and isset($_POST['question']) and isset($_POST['type_question']) and isset($_POST['reponse_vraie']))
     {
@@ -15,7 +17,7 @@ if(isUserConnected()){
         $question_type = escape($_POST['type_question']);
         $question = escape($_POST['question']);
         $reponse_vraie = escape($_POST['reponse_vraie']);
-        echo "réponse vraie : " .$reponse_vraie;
+        //echo "réponse vraie : " .$reponse_vraie;
         //cas d'un vrai/faux ou question ouverte
         if ($question_type != "qcm")
         {            
@@ -35,7 +37,7 @@ if(isUserConnected()){
             /*else
             {
                 $error = "Il manque des paramètres";
-            }*/
+            }*//*
         }
         if (!isset($error))
         {
@@ -69,8 +71,6 @@ if(isUserConnected()){
             values (?, ?, ?, ?, ?, ?, ?, ?)');
             $stmt->execute(array($id_theme, $nbQuestion, $question_type, $question, $reponse_vraie, $reponse_fausse1, $reponse_fausse2, $reponse_fausse3));
 
-            //redirection
-            redirige('quizz_add.php');
         }
     }
     /*else
@@ -85,23 +85,26 @@ if(isUserConnected()){
 $titrePage = "Ajouter une question";
 ?>
 <!--Comment ça se fait qu'on encore un head alors qu'il est dans le header ? -->
-<head>
+<!-- <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <title>Quizz </title>
-</head>
+</head> -->
 <body>
     <div class="conteneur">
         <h2 class="text-center">Ajouter une question</h2>
         <h5>Il faut un minimum de :</h5>
+        <div class="well">
         <ul>
             <li>10 questions pour le niveau facile</li>
             <li>15 questions pour le niveau médium</li>
             <li>20 questions pour le niveau difficile</li>
         </ul>
+        
+        
         <?php
         if (isset($error))
         {
@@ -112,8 +115,8 @@ $titrePage = "Ajouter une question";
             <?php
         }
         ?>
-        <div class="well">
-            <form method="POST" action="quizz_add.php" class="needs-validation" novalidate>
+        
+            <form method="POST" action="quizz_added.php" class="needs-validation" novalidate>
             <!-- Sélection du thème -->
             <div class="form-group">
                 <label for="Theme">Sélectionner le thème de la question</label>
@@ -179,7 +182,7 @@ $titrePage = "Ajouter une question";
 
             <!-- Réponse à la question -->
             <div class="form-group">
-                <label for="ReponseOuverte">Réponse à la question dans le cas d'un QCM ou d'une question ouverte</label>
+            <label for="ReponseOuverte">Réponse à la question dans le cas d'un QCM ou d'une question ouverte</label>
                 <input type="text" name="reponse_vraie" class="form-control"/> <!--id="reponse_vraie"-->
             </div>
 
@@ -221,7 +224,6 @@ $titrePage = "Ajouter une question";
 </script>
 </html>
 <?php
-    redirige("quizz_add.php");
 }
 else
     {

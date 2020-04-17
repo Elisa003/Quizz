@@ -1,8 +1,8 @@
 INSERT INTO THEME VALUES 
-(1, 'Star Wars', 24, 'star-wars.png'),
-(2, 'Harry Potter', 29, 'harry-potter.png'),
-(3, 'Cuisine', 22, 'cuisine.png'),
-(4, 'Géographie', 26, 'geographie.png');
+(1, 'Star Wars', 24),
+(2, 'Harry Potter', 29),
+(3, 'Cuisine', 22),
+(4, 'Géographie', 26);
 
 
 INSERT INTO QUESTION VALUES 
@@ -111,13 +111,9 @@ INSERT INTO QUESTION VALUES
     (25, 4, 'qcm', "Dans quelle province canadienne se trouve la ville de Toronto ?", 'Ontario', 'Manitoba', 'Québec', 'Albreta'),
     (26, 4, 'qcm', "Sur quel continent se trouve la Somalie ?", 'Afrique', 'Amérique', 'Océanie', 'Asie');
 INSERT INTO UTILISATEUR VALUES 
-    (1, 'moi', 'motdepasse', 'user');
+    (1, 'moi', 'motdepasse', 'admin');
 
 INSERT INTO DIFFICULTE VALUES 
     (1, 'Facile', 10),
     (2, 'Medium', 15),
     (3, 'Difficile', 20);
-
-INSERT INTO GAGNE VALUES (
-
-);

@@ -1,6 +1,6 @@
 <?php
-require_once "includes/functions.php";
 session_start();
+require_once "includes/functions.php";
 
 if (!empty($_POST['login']) and !empty($_POST['mdp'])) {
     $login = $_POST['login'];

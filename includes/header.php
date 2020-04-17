@@ -1,3 +1,6 @@
+<?php 
+require_once "includes/functions.php" ; 
+?>
 <!doctype html>
 <html>
 
@@ -10,9 +13,6 @@
         <title>Quizz </title>
     </head>
 
-<?php 
-require_once "includes/functions.php" ; 
-?>
 
     <body>
         <!--NAVBAR-->
