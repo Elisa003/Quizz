@@ -113,8 +113,17 @@ else
 }
 
 ?>
-<?php include("includes/header.php");?>
-<h3>Resultat :</h3></br>
+<?php 
+include("includes/header.php");
+/*$requete = $bdd->prepare('select libelle from theme where id_theme=?');
+$requete->execute(array($themeId));
+$nomTheme = $requete->fetch();
+$requete = $bdd->prepare('select libelle from difficulte where id_difficulte=?');
+$requete->execute(array($diffId));
+$nomDiff = $requete->fetch();*/
+?>
+<h3>Resultat :</h3>
+<!--<h5><?=$nomTheme?> -- <?=$nomDiff?></h5>-->
 <p>
   <?php
   if ($scoreTemps)

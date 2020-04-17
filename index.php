@@ -2,6 +2,15 @@
 session_start();
 include("includes/header.php"); ?>
 
+<?php if( !isUserConnected())
+{
+    ?>
+    <h5>Pour commencer à jouer, veuillez vous <a href="inscription.php">inscrire</a></h5>
+    <h5>ou vous <a href="connection.php">connecter</a></h5>    
+    <?php
+}
+?>
+
 <?php include("includes/carousel.php"); ?>
 <h5>(possibilités de thèmes)</h5>
 

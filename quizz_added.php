@@ -8,13 +8,20 @@ $themes = $bdd->query('select * from THEME');
 
 if(isUserConnected()){
     // Récupérer les infos du formulaire rempli par l'utilisateur
-    if(isset($_POST['id_theme']) and isset($_POST['question']) and isset($_POST['type_question']) and isset($_POST['reponse_vraie']))
+    if(isset($_POST['id_theme']) and isset($_POST['question']) and isset($_POST['type_question']) and (isset($_POST['reponse_vraie_v/f']) or isset($_POST['reponse_vraie_autre'])))
     {
         $id_theme = (int)escape($_POST['id_theme']);
         //echo "id_theme : " .$id_theme;
         $question_type = escape($_POST['type_question']);
         $question = escape($_POST['question']);
-        $reponse_vraie = escape($_POST['reponse_vraie']);
+        if ($question_type == "vrai_faux")
+        {
+            $reponse_vraie = escape($_POST['reponse_vraie_v/f']);
+        }
+        else
+        {
+            $reponse_vraie = escape($_POST['reponse_vraie_autre']);
+        }
         //echo "réponse vraie : " .$reponse_vraie;
         //cas d'un vrai/faux ou question ouverte
         if ($question_type != "qcm")
@@ -75,5 +82,5 @@ if(isUserConnected()){
         $error = "Il manque des paramètres";
     }*/
 }
-redirige("index.php");
+redirige("quizz_add.php");
 ?>

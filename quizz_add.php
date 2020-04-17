@@ -1,82 +1,12 @@
 <?php
 session_start();
-require_once "includes/functions.php";
+require_once "includes/header.php";
 
 $bdd = getDb();
 $themes = $bdd->query('select * from THEME');
 
-require_once "includes/header.php";
 
 if(isUserConnected()){
-    /*
-    // Récupérer les infos du formulaire rempli par l'utilisateur
-    if(isset($_POST['id_theme']) and isset($_POST['question']) and isset($_POST['type_question']) and isset($_POST['reponse_vraie']))
-    {
-        $id_theme = (int)escape($_POST['id_theme']);
-        //echo "id_theme : " .$id_theme;
-        $question_type = escape($_POST['type_question']);
-        $question = escape($_POST['question']);
-        $reponse_vraie = escape($_POST['reponse_vraie']);
-        //echo "réponse vraie : " .$reponse_vraie;
-        //cas d'un vrai/faux ou question ouverte
-        if ($question_type != "qcm")
-        {            
-            $reponse_fausse1 = "";
-            $reponse_fausse2 = "";
-            $reponse_fausse3 = "";
-        }
-        //cas d'un QCM
-        else
-        {
-            if (isset($_POST['reponse_fausse1']) and isset($_POST['reponse_fausse2']) and isset($_POST['reponse_fausse3']))
-            {
-                $reponse_fausse1 = escape($_POST['reponse_fausse1']);
-                $reponse_fausse2 = escape($_POST['reponse_fausse2']);
-                $reponse_fausse3 = escape($_POST['reponse_fausse3']);
-            }
-            /*else
-            {
-                $error = "Il manque des paramètres";
-            }*//*
-        }
-        if (!isset($error))
-        {
-            // Création de la table si le thème est nouveau
-            if ($id_theme == 0)
-            {
-                $nom_theme = escape($_POST['nom_theme']);
-                $requete = $bdd->prepare('insert into THEME (libelle, nb_questions) values (?, ?)');
-                $requete->execute(array($nom_theme, 0));
-
-                $requete = $bdd->prepare('select * from THEME where libelle=?');
-                $requete->execute(array($nom_theme));
-                $themes = $requete->fetch();
-                $id_theme = $themes['id_theme'];
-
-                
-            }
-            // Mise à jour du nombre de questions
-            $requete = $bdd->prepare('select * from THEME where id_theme=?');
-            $requete->execute(array($id_theme));
-            $themes = $requete->fetch();
-
-            $nbQuestion = $themes['nb_questions'];
-            $nbQuestion = intval($nbQuestion) + 1;
-            $requete = $bdd->prepare('update THEME set nb_questions=? where id_theme=?');
-            $requete->execute(array($nbQuestion, $id_theme));
-
-            // Insérer la question dans BDD            
-            echo "id_theme : " .$id_theme;
-            $stmt = $bdd->prepare('INSERT INTO QUESTION (id_theme, id_question, type, question, reponse_vraie, reponse_fausse1, reponse_fausse2, reponse_fausse3) 
-            values (?, ?, ?, ?, ?, ?, ?, ?)');
-            $stmt->execute(array($id_theme, $nbQuestion, $question_type, $question, $reponse_vraie, $reponse_fausse1, $reponse_fausse2, $reponse_fausse3));
-
-        }
-    }
-    /*else
-    {
-        $error = "Il manque des paramètres";
-    }*/
 ?>
 <!doctype html>
 <html>
@@ -84,15 +14,6 @@ if(isUserConnected()){
 <?php
 $titrePage = "Ajouter une question";
 ?>
-<!--Comment ça se fait qu'on encore un head alors qu'il est dans le header ? -->
-<!-- <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
-        <title>Quizz </title>
-</head> -->
 <body>
     <div class="conteneur">
         <h2 class="text-center">Ajouter une question</h2>
@@ -170,11 +91,11 @@ $titrePage = "Ajouter une question";
             <div class="form-group"> 
                 <label for="ReponseVraiFaux">Réponse dans le cas d'un Vrai/Faux</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="reponse_vraie" id="vrai_faux1" value="Vrai"/>
+                    <input class="form-check-input" type="radio" name="reponse_vraie_v/f" id="vrai_faux1" value="Vrai"/>
                     <label class="form-check-label" for="vrai_faux1">Vrai</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="reponse_vraie" id="vrai_faux2" value="Faux"/>
+                    <input class="form-check-input" type="radio" name="reponse_vraie_v/f" id="vrai_faux2" value="Faux"/>
                     <label class="form-check-label" for="vrai_faux2">Faux</label>
                 </div>
             </div>
@@ -183,7 +104,7 @@ $titrePage = "Ajouter une question";
             <!-- Réponse à la question -->
             <div class="form-group">
             <label for="ReponseOuverte">Réponse à la question dans le cas d'un QCM ou d'une question ouverte</label>
-                <input type="text" name="reponse_vraie" class="form-control"/> <!--id="reponse_vraie"-->
+                <input type="text" name="reponse_vraie_autre" class="form-control"/> <!--id="reponse_vraie"-->
             </div>
 
             <!-- Autres réponses (fausses) -->

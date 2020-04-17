@@ -88,6 +88,7 @@ INSERT INTO QUESTION VALUES
     (1, 4, 'qcm', "Laquelle de ces villes n'est pas une capitale ?", 'Amalty', 'Skopje', 'Tirana', 'Noursoultan'),
     (2, 4, 'qcm', "Quelle langue parle-t-on au Chili ?", 'Espagnol', 'Portigais', 'Italien', 'Français'),
     (3, 4, 'qcm', "De quel pays l'ouguiya est-elle la monnaie ?", 'Mauritanie', 'Burkina Faso', 'Ghana', 'Gabon'),
+    (4, 4, 'qcm', "Quel est lecode Insee de La Réunion ?", '974', '972', '973', '975'),
     (5, 4, 'qcm', "Sur quel continent se situe le Sri Lanka ?", 'Asie', 'Océanie', 'Afrique', 'Europe'),
     (6, 4, 'qcm', "Quelle est la capitale constitutionnelle de la Bolivie ?", 'Sucre', 'La Paz', 'Bogota', 'Santa Cruz de la Sierra'),
     (7, 4, 'qcm', "De quel pays le Pérou est-il devenu indépendant le 28 Juillet 1821 ?", 'Espagne', 'Italie', 'Portugal', 'France'),

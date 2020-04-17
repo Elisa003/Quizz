@@ -87,29 +87,4 @@ else
 }
 ?>
 
-
-<?php
-//while (time() < $dateDebut+90);
-/*while (time() < $dateDebut+90){
-    ?>
-    <script type="text/javascript">
-        document.getElementByld('formulaire').submit();
-
-        document.getElementById("envoyerBtn").addEventListener("click", monBreak);
-
-        function monBreak(){
-            alert("fini");
-        }
-    </script>
-    <?php
-}*/
-
-//redirige("resultat.php?id1=".$themeId."&id2=".$diffId);
-
-
-?>
-
-<!-- https://www.php.net/manual/fr/event.addtimer.php -->
-
-
 <?php include("includes/footer.php"); ?>
