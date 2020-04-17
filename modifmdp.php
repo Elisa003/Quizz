@@ -44,25 +44,26 @@ if (isUserConnected())
         <?php 
     } 
         ?>
+        <h2>Modification du mot de passe :</h2>
         <div class="well">
             <form class="form-signin form-horizontal" role="form" action="modifmdp.php" method="post">
                 <div class="form-group">
-                    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                    <div class="col-sm-6 col-sm-offset-3 col-md-offset-4"><!-- col-md-4">-->
                     <input type="password" name="mdp" class="form-control" placeholder="Entrez votre mot de passe actuel" required autofocus>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                    <div class="col-sm-6 col-sm-offset-3 col-md-offset-4"><!-- col-md-4">-->
                         <input type="password" name="mdp1" class="form-control" placeholder="Entrez votre nouveau mot de passe" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                    <div class="col-sm-6 col-sm-offset-3 col-md-offset-4"><!-- col-md-4">-->
                         <input type="password" name="mdp2" class="form-control" placeholder="Confirmez votre nouveau mot de passe" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                    <div class="col-sm-6 col-sm-offset-3 col-md-offset-4"><!-- col-md-4">-->
                         <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Changer de mot de passe</button>
                     </div>
                 </div>

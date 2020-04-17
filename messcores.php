@@ -18,6 +18,7 @@ $scores = $requete->fetchAll();
 <?php if (isUserConnected())
     {
         ?>
+        <h2>Tableau des scores :</h2>
         <table>
             <tr>
                 <th>Thèmes</th>
@@ -43,9 +44,15 @@ $scores = $requete->fetchAll();
                         <td><?= $lib_diff ?></td> 
                         <?php if (!is_null($score['temps']))
                             {
-                                $secondes = $score % 60;
-                                $minute = $score / 60;
+                                ?>
+                                <td>
+                                <?php
+                                $secondes = $score['temps'] % 60;
+                                $minute = (int)($score['temps'] / 60);
                                 echo $minute.' minute et '.$secondes.' secondes';
+                                ?>
+                                </td>
+                                <?php
                             }
                         else
                             {

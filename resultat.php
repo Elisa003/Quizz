@@ -25,24 +25,31 @@ $total = 0;
 foreach ($elements as $idQ)
 {
   $question = getQuestion($idQ, $themeId, $bdd);
-  $name = "reponse".$idQ;
-  $reponse = $_POST[$name];
-  if ($question['type'] != "qcm")
+  $name = 'reponse'.$idQ;
+  if (isset($_POST[$name]))
   {
-    if ($reponse == $question['reponse_vraie'])
+    $reponse = $_POST[$name];
+    if ($question['type'] != "qcm")
     {
-      $total += 1;
+      if ($reponse == $question['reponse_vraie'])
+      {
+        $total += 1;
+      }
+    }
+    else 
+    {
+      if ($reponse == "reponse_vraie")
+      {
+        $total += 1;
+      }
     }
   }
-  else 
-  {
-    if ($reponse == "reponse_vraie")
-    {
-      $total += 1;
-    }
-  }
+  //nécessaire ? il suffit juste de ne pas s'en occuper comme c'est le cas ici
+  /*else{
+    $error = "Il manque des réponses";
+  }*/
 }
-$scoreTemps = ($total == $nbQuest);
+$scoreTemps = ($total == $nbQuest) and ($deltaTemps < 190);
 //récupération du score précédent
 $requete = $bdd->prepare('select * from GAGNE where id_theme=? and id_difficulte=? and id_utilisateur=?');
 $requete->execute(array($themeId, $diffId, $utilisateur['id_utilisateur']));
@@ -62,7 +69,7 @@ if($scoreTemps)
   $score = $deltaTemps;
   if ($nbScores == 1) //s'il y a déjà un score
   {
-    if (is_null($scores['temps'])) //et que c'est un temps
+    if (!is_null($scores['temps'])) //et que c'est un temps
     {
       if ($score < $scores['temps'])
       {
@@ -72,7 +79,7 @@ if($scoreTemps)
     }
     else //et que c'est un nombre de points
     {
-      $requete = $bdd->prepare('update GAGNE set temps=? and points=NULL where id_theme=? and id_difficulte=? and id_utilisateur=?');
+      $requete = $bdd->prepare('update GAGNE set temps=? where id_theme=? and id_difficulte=? and id_utilisateur=?');
       $requete->execute(array($score, $themeId, $diffId, $utilisateur['id_utilisateur']));
     }
   }
@@ -106,17 +113,19 @@ else
 
 ?>
 <?php include("includes/header.php");?>
-Resultat :</br>
-<?php
-if ($scoreTemps)
-{
-  $secondes = $score % 60;
-  $minute = $score / 60;
-  echo $minute.' minute et '.$secondes.' secondes';
-}
-else
-{
-  echo $score.' / '.$nbQuest;
-}
-?>
+<h3>Resultat :</h3></br>
+<p>
+  <?php
+  if ($scoreTemps)
+  {
+    $secondes = $score % 60;
+    $minute = (int)($score / 60);
+    echo $minute.' minute et '.$secondes.' secondes';
+  }
+  else
+  {
+    echo $score.' / '.$nbQuest;
+  }
+  ?>
+</p>
 <?php include("includes/footer.php");?>

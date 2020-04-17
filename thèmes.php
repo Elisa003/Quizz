@@ -8,6 +8,9 @@ $themes = $bdd->query('select * from THEME order by libelle');
 
 <?php if (isUserConnected())
     {
+        ?>
+        <h2>Liste des thèmes :</h2>
+        <?php
         foreach ($themes as $theme) 
             { 
                 ?>

@@ -2,6 +2,7 @@
 include("includes/header.php"); ?>
 
 <?php include("includes/carousel.php"); ?>
+<h5>(possibilités de thèmes)</h5>
 
 <?php if (isUserConnected())
     {
@@ -20,6 +21,9 @@ include("includes/header.php"); ?>
             <h4><a href="quizz_add.php">Ajouter un thème/une question</a></h4>
             <?php
         }
+        ?>
+        <h4><a href="tutoriel.php">Tutoriel</a></h4>
+        <?php
     }
 ?>
 

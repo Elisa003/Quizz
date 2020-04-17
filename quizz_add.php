@@ -15,12 +15,15 @@ if(isUserConnected()){
         $question_type = escape($_POST['type_question']);
         $question = escape($_POST['question']);
         $reponse_vraie = escape($_POST['reponse_vraie']);
+        echo "réponse vraie : " .$reponse_vraie;
+        //cas d'un vrai/faux ou question ouverte
         if ($question_type != "qcm")
         {            
             $reponse_fausse1 = "";
             $reponse_fausse2 = "";
             $reponse_fausse3 = "";
         }
+        //cas d'un QCM
         else
         {
             if (isset($_POST['reponse_fausse1']) and isset($_POST['reponse_fausse2']) and isset($_POST['reponse_fausse3']))
@@ -29,10 +32,10 @@ if(isUserConnected()){
                 $reponse_fausse2 = escape($_POST['reponse_fausse2']);
                 $reponse_fausse3 = escape($_POST['reponse_fausse3']);
             }
-            else
+            /*else
             {
                 $error = "Il manque des paramètres";
-            }
+            }*/
         }
         if (!isset($error))
         {
@@ -42,31 +45,38 @@ if(isUserConnected()){
                 $nom_theme = escape($_POST['nom_theme']);
                 $requete = $bdd->prepare('insert into THEME (libelle, nb_questions) values (?, ?)');
                 $requete->execute(array($nom_theme, 0));
+
+                $requete = $bdd->prepare('select * from THEME where libelle=?');
+                $requete->execute(array($nom_theme));
+                $themes = $requete->fetch();
+                $id_theme = $themes['id_theme'];
+
+                
             }
-            // Insérer la question dans BDD
-            $bdd = getDb();
-            $requete = $bdd->prepare('select id_theme from THEME where libelle=?');
-            $requete->execute(array($nom_theme));
-            $id_theme = $requete->fetch();
-            echo "id_theme : " .$id_theme;
-            $stmt = $bdd->prepare('INSERT INTO QUESTION (id_theme, type, question, reponse_vraie, reponse_fausse1, reponse_fausse2, reponse_fausse3) 
-            values (?, ?, ?, ?, ?, ?, ?)');
-            $stmt->execute(array($id_theme, $question_type, $question, $reponse_vraie, $reponse_fausse1, $reponse_fausse2, $reponse_fausse3));
             // Mise à jour du nombre de questions
             $requete = $bdd->prepare('select * from THEME where id_theme=?');
             $requete->execute(array($id_theme));
-            $theme = $requete->fetch();
+            $themes = $requete->fetch();
 
-            $nbQuestion = $theme['nb_questions'];
+            $nbQuestion = $themes['nb_questions'];
             $nbQuestion = intval($nbQuestion) + 1;
             $requete = $bdd->prepare('update THEME set nb_questions=? where id_theme=?');
             $requete->execute(array($nbQuestion, $id_theme));
+
+            // Insérer la question dans BDD            
+            echo "id_theme : " .$id_theme;
+            $stmt = $bdd->prepare('INSERT INTO QUESTION (id_theme, id_question, type, question, reponse_vraie, reponse_fausse1, reponse_fausse2, reponse_fausse3) 
+            values (?, ?, ?, ?, ?, ?, ?, ?)');
+            $stmt->execute(array($id_theme, $nbQuestion, $question_type, $question, $reponse_vraie, $reponse_fausse1, $reponse_fausse2, $reponse_fausse3));
+
+            //redirection
+            redirige('quizz_add.php');
         }
     }
-    else
+    /*else
     {
         $error = "Il manque des paramètres";
-    }
+    }*/
 ?>
 <!doctype html>
 <html>
@@ -74,6 +84,7 @@ if(isUserConnected()){
 <?php
 $titrePage = "Ajouter une question";
 ?>
+<!--Comment ça se fait qu'on encore un head alors qu'il est dans le header ? -->
 <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -106,7 +117,8 @@ $titrePage = "Ajouter une question";
             <!-- Sélection du thème -->
             <div class="form-group">
                 <label for="Theme">Sélectionner le thème de la question</label>
-                <select name="id_theme" class="form-control"><!--id="id_theme"-->
+                <select name="id_theme" class="form-control" required><!--id="id_theme"-->
+                    <option value=""></option>
                     <?php
                     foreach ($themes as $theme)
                     {
@@ -117,6 +129,7 @@ $titrePage = "Ajouter une question";
                     ?>
                     <option value="0">Nouveau</option>
                 </select>
+                <div class="invalid-feedback">Veuillez sélectionner le thème de votre question</div>
             </div>
 
             <!--Nom Thème si nouveau-->
@@ -127,7 +140,7 @@ $titrePage = "Ajouter une question";
 
             <!-- Type de question -->
             <div class="form-group"> 
-                <label for="QuestionType">Type de question</label>
+                <label for="QuestionType" required >Type de question</label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="type_question" id="type_question1" value="qcm"/>
                     <label class="form-check-label" for="type_question1">QCM</label>
@@ -140,6 +153,7 @@ $titrePage = "Ajouter une question";
                     <input class="form-check-input" type="radio" name="type_question" id="type_question3" value="ouverte"/>
                     <label class="form-check-label" for="type_question3">Question ouverte</label>
                 </div>
+                <div class="invalid-feedback">Veuillez Sélectionner un type de question</div>
             </div>
 
             <!-- Intitulé de la question -->
@@ -184,6 +198,27 @@ $titrePage = "Ajouter une question";
     </div>
 
 </body>
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
 </html>
 <?php
     redirige("quizz_add.php");
@@ -192,5 +227,6 @@ else
     {
         include("includes/erreur.php");
     }
+include("includes/footer.php");
 ?>
 

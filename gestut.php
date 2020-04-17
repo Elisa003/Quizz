@@ -9,6 +9,7 @@ $utilisateurs = $bdd->query('select * from UTILISATEUR');
 <?php if (isUserConnected())
 {
     ?>
+    <h2>Gestion des utilisateurs :</h2>
     <table>
         <tr>
             <th>Login</th>
@@ -18,20 +19,24 @@ $utilisateurs = $bdd->query('select * from UTILISATEUR');
         foreach ($utilisateurs as $utilisateur)
         {
             ?>
-            <td><?=$utilisateur['login']?></td>
+            <tr>
+                <td><?=$utilisateur['login']?></td>
+                <?php
+                if ($utilisateur['droits'] == "user")
+                {
+                    ?>
+                    <td>Simple utilisateur</br><a href="admin.php?id=<?=$utilisateur['id_utilisateur']?>">Passer administrateur</a></td>
+                    <?php
+                }
+                else
+                {
+                    ?>
+                    <td>Administrateur</td>
+                    <?php
+                }
+                ?>
+            </tr>
             <?php
-            if ($utilisateur['droits'] == "user")
-            {
-                ?>
-                <td>Simple utilisateur</br><a href="admin.php?id=<?=$utilisateur['id_utilisateur']?>">Passer administrateur</a></td>
-                <?php
-            }
-            else
-            {
-                ?>
-                <td>Administrateur</td>
-                <?php
-            }
         }?>
     </table>
     <?php

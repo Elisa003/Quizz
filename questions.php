@@ -46,27 +46,30 @@ $questSelect = array_rand($tabInd, $nbQuest); // sélectionne $nbQuest élément
             if ($question['type'] == "qcm") 
             {
                 ?></br>
-                <select class="form-control" name="reponse<?= $question['id_question'] ?>" size="4">
+                <select class="form-control" name="reponse<?= $question['id_question'] ?>" size="4" required>
                     <option value="reponse_fausse1"><?= $question['reponse_fausse1'] ?></option>
                     <option value="reponse_fausse2"><?= $question['reponse_fausse2'] ?></option>
                     <option value="reponse_vraie"><?= $question['reponse_vraie'] ?></option>
                     <option value="reponse_fausse3"><?= $question['reponse_fausse3'] ?></option>
                 </select></br>
+                <div class="invalid-feedback">Veuillez sélectionner une réponse</div>
                 <?php
             } 
             elseif ($question['type'] == "vrai_faux")
             {
                 ?></br>
                 <label for="Vrai">Vrai</label>
-                <input type="radio" name="reponse<?= $question['id_question']?>"/>
+                <input type="radio" name="reponse<?= $question['id_question']?>" value="Vrai" required/>
                 <label for="Faux">Faux</label>
-                <input type="radio" name="reponse<?= $question['id_question']?>"/>
+                <input type="radio" name="reponse<?= $question['id_question']?>" value="Faux" required/>
+                <div class="invalid-feedback">Veuillez sélectionner une réponse</div>
                 <?php
             }
             else 
             {
                 ?></br>
-                <input type="text" name="reponse<?= $question['id_question'] ?>" size="50" /><br>
+                <input type="text" name="reponse<?= $question['id_question']?>" size="50" required/><br>
+                <div class="invalid-feedback">Veuillez sélectionner une réponse</div>
                 <?php
             }?>
             </div>
@@ -74,7 +77,7 @@ $questSelect = array_rand($tabInd, $nbQuest); // sélectionne $nbQuest élément
         }
         $_SESSION['liste_elements'] = $tableau;
         ?>
-        <input type="submit" value="Envoyer"/>
+        <input id="envoyerBtn" type="submit" value="Envoyer"/>
     </form>
 <?php
 } 
@@ -84,21 +87,29 @@ else
 }
 ?>
 
-<?php include("includes/footer.php"); ?>
+
 <?php
 //while (time() < $dateDebut+90);
-while (time() < $dateDebut+90);
-?>
+/*while (time() < $dateDebut+90){
+    ?>
     <script type="text/javascript">
-        document.getElementByld('formulaire').submit()
+        document.getElementByld('formulaire').submit();
+
+        document.getElementById("envoyerBtn").addEventListener("click", monBreak);
+
+        function monBreak(){
+            alert("fini");
+        }
     </script>
     <?php
-    redirige("resultat.php?id1=".$themeId."&id2=".$diffId);
+}*/
 
-    
-
+//redirige("resultat.php?id1=".$themeId."&id2=".$diffId);
 
 
 ?>
 
 <!-- https://www.php.net/manual/fr/event.addtimer.php -->
+
+
+<?php include("includes/footer.php"); ?>
